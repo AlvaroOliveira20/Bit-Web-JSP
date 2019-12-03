@@ -1,30 +1,30 @@
 package br.edu.cesmac.model;
 
-public class Cadastro {
-	private int idCadastro;
+public class Conta {
+	private int idConta;
 	private String nome;
 	private String cpf;
 	private String email;
 	private String senha;
 
-	public Cadastro() {
+	public Conta() {
 
 	}
 
-	public Cadastro(String nome, int idCadastro, String cpf, String email, String senha) {
+	public Conta(String nome, int idConta, String cpf, String email, String senha) {
 		this.nome = nome;
-		this.idCadastro = idCadastro;
+		this.idConta = idConta;
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
 	}
 
-	public int getIdCadastro() {
-		return idCadastro;
+	public int getIdConta() {
+		return idConta;
 	}
 
-	public void setIdCadastro(int idCadastro) {
-		this.idCadastro = idCadastro;
+	public void setIdConta(int idConta) {
+		this.idConta = idConta;
 	}
 
 	public String getNome() {

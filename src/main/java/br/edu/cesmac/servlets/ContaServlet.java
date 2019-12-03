@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.edu.cesmac.dao.CadastroDao;
-import br.edu.cesmac.model.Cadastro;
+import br.edu.cesmac.dao.ContaDao;
+import br.edu.cesmac.model.Conta;
 
-@WebServlet(urlPatterns = {"/cadastro", "/cadastro/", "/cadastro/nova", "/cadastro/adiciona", "/cadastro/remove", "/cadastro/altera", "/cadastro/edita"})
-public class CadastroServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/conta", "/conta/", "/conta/nova", "/conta/adiciona", "/conta/remove", "/conta/altera", "/conta/edita"})
+public class ContaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private CadastroDao cadastroDao;
+	private ContaDao contaDao;
 
 	public void init() {
-		cadastroDao = new CadastroDao();
+		contaDao = new ContaDao();
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -30,15 +30,15 @@ public class CadastroServlet extends HttpServlet {
 		String acao = request.getServletPath();
 
 		try {
-			if (acao.equals("//adiciona")) {
+			if (acao.equals("/conta/adiciona")) {
 				adiciona(request, response);
-			} else if (acao.equals("/cadastro/altera")) {
+			} else if (acao.equals("/conta/altera")) {
 				altera(request, response);				
-			} else if (acao.equals("/cadastro/nova")) {
+			} else if (acao.equals("/conta/nova")) {
 				nova(request, response);
-			} else if (acao.equals("/cadastro/edita")) {
+			} else if (acao.equals("/conta/edita")) {
 				edita(request, response);				
-			} else if (acao.equals("/cadastro/remove")) {
+			} else if (acao.equals("/conta/remove")) {
 				remove(request, response);
 			} else {
 				lista(request, response);
@@ -50,61 +50,64 @@ public class CadastroServlet extends HttpServlet {
 
 	private void adiciona(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		Cadastro cadastro = new Cadastro();
-		cadastro.setNome(request.getParameter("nome"));
+		Conta conta = new Conta();
+		conta.setNome(request.getParameter("nome"));
+		conta.setCpf(request.getParameter("cpf"));
+		conta.setEmail(request.getParameter("email"));
+		conta.setSenha(request.getParameter("senha"));
 
 		try {
-			cadastroDao.adiciona(cadastro);
+			contaDao.adiciona(conta);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("/cadastro");
+		response.sendRedirect("/conta");
 	}
 
 	private void altera(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		Cadastro cadastro = new Cadastro();
-		cadastro.setIdCadastro(Integer.parseInt(request.getParameter("id")));
-		cadastro.setNome(request.getParameter("nome"));
-		cadastro.setCpf(request.getParameter("cpf"));
-		cadastro.setEmail(request.getParameter("email"));
-		cadastro.setSenha(request.getParameter("senha"));
-		cadastroDao.altera(cadastro);
-		response.sendRedirect("/cadastro");
+		Conta conta = new Conta();
+		conta.setIdConta(Integer.parseInt(request.getParameter("id")));
+		conta.setNome(request.getParameter("nome"));
+		conta.setCpf(request.getParameter("cpf"));
+		conta.setEmail(request.getParameter("email"));
+		conta.setSenha(request.getParameter("senha"));
+		contaDao.altera(conta);
+		response.sendRedirect("/conta");
 	}
 
 	private void nova(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cadastro cadastro = new Cadastro();
-		request.setAttribute("cadastro", cadastro);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro/manter.jsp");	
+		Conta conta = new Conta();
+		request.setAttribute("conta", conta);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/conta/manter.jsp");	
 		dispatcher.forward(request, response);	
 	}
 	
 	private void edita(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cadastro cadastro = new Cadastro();
+		Conta conta = new Conta();
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		cadastro = cadastroDao.getById(id);
-        request.setAttribute("cadastro", cadastro);
+		conta = contaDao.getById(id);
+        request.setAttribute("conta", conta);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro/manter.jsp");	
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/conta/manter.jsp");	
 		dispatcher.forward(request, response);	
 	}	
 
 	private void remove(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		Cadastro cadastro = new Cadastro();
-		cadastro.setIdCadastro(Integer.parseInt(request.getParameter("id")));
+		Conta conta = new Conta();
+		conta.setIdConta(Integer.parseInt(request.getParameter("id")));
 
-		cadastroDao.remove(cadastro);
-		response.sendRedirect("/cadastro");
+		contaDao.remove(conta);
+		response.sendRedirect("/conta");
 	}
 
 	private void lista(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List <Cadastro> cadastros = cadastroDao.getLista();
-        request.setAttribute("cadastros", cadastros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastro/consulta.jsp");
+		List <Conta> contas = contaDao.getLista();
+        request.setAttribute("contas", contas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/conta/consulta.jsp");
         dispatcher.forward(request, response);		
 
 	}

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-<title>Cadastro</title>
+<title>Conta</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,6 +18,12 @@
 
 
 <style>
+body {
+ background-image: url("https://mduxnq.by.files.1drv.com/y4pNJHdcsZTKGYmhJjeIL5phSwjcThO9oZPLBkUYNFvfTfwBp5_fiJYXy94YPAoN2VO7sqxyVpfMCc5jjiiLEPkMA9sO4BNssA6tJ_J8kc5uf2hIOwa2Z_qY-ubxq9piOt3rLpp0zBVe1LePbHgshbikT5WUE4rT99u7urDN4HtdBsK4fAoGPRTyoWbSajaaNSXICBrX-vIgQBEnz3bs_C6EK3pcZNvpqDkjwfMuzopSe8?encodeFailures=1&width=1366&height=536");
+ background-color: #000;
+ background-repeat: no-repeat;
+ background-size: 1600px 1500px;
+}
 .bd-placeholder-img {
 	font-size: 1.125rem;
 	text-anchor: middle;
@@ -39,33 +45,33 @@
 		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<h5 class="my-0 mr-md-auto font-weight-normal">BitApp</h5>
 		<nav class="my-2 my-md-0 mr-md-3">
-			<a class="p-2 text-dark" href="#">Features</a> <a
-				class="p-2 text-dark" href="#">Enterprise</a> <a
-				class="p-2 text-dark" href="#">Support</a> <a class="p-2 text-dark"
-				href="#">Pricing</a>
+			<a class="p-2 text-dark" href="/conta">Conta</a> <a
+				class="p-2 text-dark" href="/cartao">Cadastro de cartão</a> <a
+				class="p-2 text-dark" href="/outros/lista">Outros</a>
+				
 		</nav>
-		<a class="btn btn-outline-primary" href="#">Sign up</a>
+		<a class="btn btn-outline-primary" href="#">Sair</a>
 	</div>
-
+	<img src="http://localhost:8899/anigif.gif" width="250" height="200" />
 	<div class="container">
-		<h1 class="display-4">Inclusão de Cadastro</h1>
-		<c:if test="${cadastro != null}">
+		<h1 class="display-4">Cadastro de Conta</h1>
+		<c:if test="${conta.idConta != 0}">
 			<form action="altera" method="post">
-				<input type="hidden" name="id" value="<c:out value='${cadastro.idCadastro}' />" >
+				<input type="hidden" name="id" value="<c:out value='${conta.idConta}' />" >
 		</c:if>
-		<c:if test="${cadastro == null}">
+		<c:if test="${conta.idConta == 0}">
 			<form action="adiciona" method="post">
 		</c:if>		
 				<div class="form-group row">
-					<label for="inputPassword" class="col-sm-2 col-form-label">Cadastro</label>
+					<label for="inputPassword" class="col-sm-2 col-form-label">Conta</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="nome" id="inputNome" value="<c:out value='${cadastro.nome}'/>"
-							placeholder="Cadastro">
-						<input type="text" class="form-control" name="cpf" id="inputCpf" value="<c:out value='${cadastro.cpf}'/>"
+						<input type="text" class="form-control" name="nome" id="inputNome" value="<c:out value='${conta.nome}'/>"
+							placeholder="Nome">
+						<input type="text" class="form-control" name="cpf" id="inputCpf" value="<c:out value='${conta.cpf}'/>"
 							placeholder="CPF">
-						<input type="text" class="form-control" name="email" id="inputEmail" value="<c:out value='${cadastro.email}'/>"
+						<input type="text" class="form-control" name="email" id="inputEmail" value="<c:out value='${conta.email}'/>"
 							placeholder="E-mail">
-						<input type="text" class="form-control" name="senha" id="inputSenha" value="<c:out value='${cadastro.senha}'/>"
+						<input type="text" class="form-control" name="senha" id="inputSenha" value="<c:out value='${conta.senha}'/>"
 							placeholder="Senha">
 						
 					</div>
